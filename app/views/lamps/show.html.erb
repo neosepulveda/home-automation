@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<div id="switch-form">
+  <%= render 'lamps/switch' %>
+</div>
+
+<p>
+  <strong>Name:</strong>
+  <%= @lamp.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @lamp.description %>
+</p>
+
+<p>
+  <strong>Calendar:</strong>
+  <%= @lamp.calendar %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @lamp.status %>
+</p>
+
+<p>
+  <strong>On Script:</strong>
+  <%= @lamp.onscript %>
+</p>
+
+<p>
+  <strong>Off script:</strong>
+  <%= @lamp.offscript %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @lamp.image.url %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_lamp_path(@lamp) %> |
+<%= link_to 'Back', lamps_path %>

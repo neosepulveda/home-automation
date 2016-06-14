@@ -1,0 +1,17 @@
+<%= simple_form_for(@lamp) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.input :calendar %>
+    <%= f.input :status %>
+    <%= f.input :onscript %>
+    <%= f.input :offscript %>
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

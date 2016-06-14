@@ -1,0 +1,9 @@
+<% if @lamp.status == 0 then %>
+  <%= form_tag on_lamp_path(@lamp), remote: true do %>
+    <%= button_tag 'On', class: 'btn btn-primary' %>
+  <% end %>
+<% else %>
+   <%= form_tag off_lamp_path(@lamp), remote: true do %>
+     <%= button_tag 'Off', class: 'btn btn-primary' %>
+   <% end %>
+<% end %>
