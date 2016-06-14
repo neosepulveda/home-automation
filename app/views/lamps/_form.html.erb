@@ -1,4 +1,4 @@
-<%= simple_form_for(@lamp) do |f| %>
+<%= simple_form_for @lamp do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -10,6 +10,12 @@
     <%= f.input :offscript %>
     <%= f.file_field :image %>
   </div>
+
+  <h2>Scripts</h2>
+  <%= f.simple_fields_for :scripts do |script| %>
+    <%= render 'lamps/script_fields', f: script %>
+  <% end %>
+  <%= link_to_add_fields "Add script", f, :scripts %>
 
   <div class="form-actions">
     <%= f.button :submit %>

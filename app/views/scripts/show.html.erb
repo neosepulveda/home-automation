@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @script.name %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @script.code %>
+</p>
+
+<p>
+  <strong>Lamp:</strong>
+  <%= link_to @script.lamp.name, lamp_path(@script.lamp) %>
+</p>
+
+<%= link_to 'Edit', edit_script_path(@script) %> |
+<%= link_to 'Back', scripts_path %>

@@ -40,6 +40,18 @@
 </p>
 
 
+<h2>Scripts</h2>
+
+<% if @lamp.scripts.any? %>
+  <ul>
+    <% @lamp.scripts.each do |script| %>
+      <li><%= link_to script.name, script_path(script) %> | <%= button_to 'Execute',exec_script_path(@lamp.id, script.id), remote: true %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No scripts available</p>
+<% end %>
+
 
 <%= link_to 'Edit', edit_lamp_path(@lamp) %> |
 <%= link_to 'Back', lamps_path %>

@@ -3,7 +3,11 @@ Rails.application.routes.draw do
     post 'on', on: :member
     post 'off', on: :member    
   end
-
+  
+  resources :scripts
+   
+  post "/lamps/:lamp_id/scripts/:id/" => "lamps#exec", :as => :exec_script
+  
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users
 

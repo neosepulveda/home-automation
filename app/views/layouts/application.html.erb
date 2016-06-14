@@ -50,7 +50,7 @@
         <li><%= link_to('Users', users_path) %></li>
 	<% if user_signed_in? %>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag(current_user.image.thumb.url, size: "32") %></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding: 9px;"><%= image_tag(current_user.image.thumb.url, size: "32") %></a>
             <ul class="dropdown-menu">
               <li><%= link_to('Edit profile', edit_user_registration_path) %></li>
               <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>

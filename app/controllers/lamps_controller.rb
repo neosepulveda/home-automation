@@ -1,7 +1,9 @@
 class LampsController < ApplicationController
-  before_action :set_lamp, only: [:show, :edit, :update, :destroy, :on, :off]
+  before_action :authenticate_user!
+  before_action :set_lamp, only: [ :show, :edit, :update, :destroy, :on, :off ]
+  before_action :load_script, only: [ :exec ]
+  after_action :generate_scripts, only: [ :create, :update ]
   respond_to :html, :js
-
 
   # GET /lamps
   # GET /lamps.json
@@ -64,15 +66,33 @@ class LampsController < ApplicationController
   end
 
   def on
-    system('python ' + @lamp.onscript)
+    script = Script.find(@lamp.onscript)    
+
+    system('python ' + "/home/pi/python_scripts/" + @lamp.name.downcase + "/" + script.name.downcase + ".py")
     @lamp.status = 1
     @lamp.save
   end
 
   def off
-    system('python ' + @lamp.offscript)
+    script = Script.find(@lamp.offscript)
+
+    system('python ' + "/home/pi/python_scripts/" + @lamp.name.downcase + "/" + script.name.downcase + ".py")
     @lamp.status = 0
     @lamp.save
+  end
+
+  def exec
+    system('python ' + "/home/pi/python_scripts/" + @script.lamp.name.downcase + "/" + @script.name.downcase + ".py")
+    
+    if @script.name.downcase == 'on' then
+      @script.lamp.status = 1
+      @script.lamp.save
+    elsif @script.name.downcase == 'off' then
+      @script.lamp.status = 0
+      @script.lamp.save
+    end
+
+    head :ok, content_type: "text/html"
   end
 
   private
@@ -81,8 +101,25 @@ class LampsController < ApplicationController
       @lamp = Lamp.find(params[:id])
     end
 
+    def load_script
+      @script = Script.find(params[:id])
+    end
+
+    def generate_scripts
+      if !@lamp.scripts.empty? then
+        directory = "/home/pi/python_scripts/" + @lamp.name.downcase 
+        FileUtils.mkdir_p directory if !File.directory?(directory) 
+        @lamp.scripts.each do |script|
+          path = directory + "/" + script.name.downcase + ".py"
+          File.open(path, "w+") do |f|
+            f.write(script.code)
+          end
+        end
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def lamp_params
-      params.require(:lamp).permit(:name, :description, :calendar, :status, :onscript, :offscript, :image)
+      params.require(:lamp).permit(:name, :description, :calendar, :status, :onscript, :offscript, :image, scripts_attributes: [ :id, :name, :code, :_destroy ])
     end
 end
