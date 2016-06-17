@@ -1,6 +1,8 @@
+<div class="col-md-3">
 <%= simple_form_for @lamp do |f| %>
   <%= f.error_notification %>
 
+  <h2>General</h2>
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :description %>
@@ -10,7 +12,9 @@
     <%= f.input :offscript %>
     <%= f.file_field :image %>
   </div>
+</div>
 
+<div class="col-md-9">
   <h2>Scripts</h2>
   <%= f.simple_fields_for :scripts do |script| %>
     <%= render 'lamps/script_fields', f: script %>
@@ -21,3 +25,4 @@
     <%= f.button :submit %>
   </div>
 <% end %>
+</div>

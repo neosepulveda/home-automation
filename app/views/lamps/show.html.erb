@@ -1,27 +1,45 @@
 <p id="notice"><%= notice %></p>
 
-<div id="switch-form">
-  <%= render 'lamps/switch' %>
+<div class="col-md-6 col-md-offset-3">
+  <h1><%= @lamp.name %></h1>
+  <div id="switch-form">
+    <%= render 'lamps/switch' %>
+  </div>
+  <p><%= @lamp.description %></p>
+  <p><strong>Status: </strong><%= @lamp.status %></p>
+  <%= image_tag @lamp.image.url %>
 </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @lamp.name %>
-</p>
+<div class="col-md-6 col-md-6 col-md-offset-3">
+  <h2>Scripts</h2>
 
-<p>
-  <strong>Description:</strong>
-  <%= @lamp.description %>
-</p>
+  <% if @lamp.scripts.any? %>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Execute</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @lamp.scripts.each do |script| %>
+          <tr>
+            <td><%= link_to script.name, script_path(script) %></td>
+            <td><%= button_to 'Execute',exec_script_path(@lamp.id, script.id), class: 'btn btn-primary', remote: true %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No scripts available</p>
+  <% end %>
+</div>
+
 
 <p>
   <strong>Calendar:</strong>
   <%= @lamp.calendar %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @lamp.status %>
 </p>
 
 <p>
@@ -33,24 +51,6 @@
   <strong>Off script:</strong>
   <%= @lamp.offscript %>
 </p>
-
-<p>
-  <strong>Image:</strong>
-  <%= image_tag @lamp.image.url %>
-</p>
-
-
-<h2>Scripts</h2>
-
-<% if @lamp.scripts.any? %>
-  <ul>
-    <% @lamp.scripts.each do |script| %>
-      <li><%= link_to script.name, script_path(script) %> | <%= button_to 'Execute',exec_script_path(@lamp.id, script.id), remote: true %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No scripts available</p>
-<% end %>
 
 
 <%= link_to 'Edit', edit_lamp_path(@lamp) %> |

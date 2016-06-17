@@ -1,7 +1,7 @@
-<fieldset>
+<fieldset style="padding-bottom: 30px;">
   <div class="fields">
     <%= f.input :name %>
-    <%= f.input :code %>
+    <%= f.input :code, input_html: { style: 'height: 200px;' } %>
     <%= f.input :_destroy, as: :hidden %>
     <%= link_to "Remove script", '#', class: "remove_fields" %>
   </div>

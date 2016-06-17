@@ -77,9 +77,10 @@ test:
 #
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
-#
+
 production:
   <<: *default
   database: HomeAutomationTest_production
-  username: HomeAutomationTest
-  password: <%= ENV['HOMEAUTOMATIONTEST_DATABASE_PASSWORD'] %>
+  username: autohome
+  password: <%= ENV['AUTOHOME_RAILS'] %>
+  host: localhost
