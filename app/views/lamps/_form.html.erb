@@ -12,6 +12,10 @@
     <%= f.input :offscript %>
     <%= f.file_field :image %>
   </div>
+  
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
 </div>
 
 <div class="col-md-9">
@@ -21,8 +25,5 @@
   <% end %>
   <%= link_to_add_fields "Add script", f, :scripts %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
 <% end %>
 </div>

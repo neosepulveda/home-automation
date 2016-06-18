@@ -68,7 +68,7 @@ class LampsController < ApplicationController
   def on
     script = Script.find(@lamp.onscript)    
 
-    system('python ' + "/home/pi/python_scripts/" + @lamp.name.downcase + "/" + script.name.downcase + ".py")
+    system('python ' + "/home/neo/home-automation/tmp/pyscripts/" + @lamp.name.downcase.gsub(/\s+/, "") + "/" + script.name.downcase.gsub(/\s+/, "") + ".py")
     @lamp.status = 1
     @lamp.save
   end
@@ -76,13 +76,13 @@ class LampsController < ApplicationController
   def off
     script = Script.find(@lamp.offscript)
 
-    system('python ' + "/home/pi/python_scripts/" + @lamp.name.downcase + "/" + script.name.downcase + ".py")
+    system('python ' + "/home/neo/home-automation/tmp/pyscripts/" + @lamp.name.downcase.gsub(/\s+/, "") + "/" + script.name.downcase.gsub(/\s+/, "") + ".py")
     @lamp.status = 0
     @lamp.save
   end
 
   def exec
-    system('python ' + "/home/pi/python_scripts/" + @script.lamp.name.downcase + "/" + @script.name.downcase + ".py")
+    system('python ' + "/home/neo/home-automation/tmp/pyscripts/" + @script.lamp.name.downcase.gsub(/\s+/, "") + "/" + @script.name.downcase.gsub(/\s+/, "") + ".py")
     
     if @script.name.downcase == 'on' then
       @script.lamp.status = 1
@@ -107,7 +107,7 @@ class LampsController < ApplicationController
 
     def generate_scripts
       if !@lamp.scripts.empty? then
-        directory = "/home/pi/python_scripts/" + @lamp.name.downcase 
+        directory = "/home/neo/home-automation/tmp/pyscripts/" + @lamp.name.downcase.gsub(/\s+/, "")
         FileUtils.mkdir_p directory if !File.directory?(directory) 
         @lamp.scripts.each do |script|
           path = directory + "/" + script.name.downcase + ".py"
